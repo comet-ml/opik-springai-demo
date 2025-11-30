@@ -58,9 +58,8 @@ The application requires the following environment variables to be set:
 - **OTEL_EXPORTER_OTLP_ENDPOINT**: OPIK OpenTelemetry endpoint
 - **OTEL_EXPORTER_OTLP_HEADERS**: Authorization headers for OPIK
 
-#### Setting Environment Variables
 
-##### Using Cloud OPIK (Comet)
+#### Setting Environment Variables: Using Cloud OPIK (Comet)
 
 **On macOS/Linux:**
 ```bash
@@ -83,7 +82,7 @@ $env:OTEL_EXPORTER_OTLP_ENDPOINT="https://www.comet.com/opik/api/v1/private/otel
 $env:OTEL_EXPORTER_OTLP_HEADERS="Authorization=<your-opik-api-key>,Comet-Workspace=default,projectName=<your-project-name>"
 ```
 
-##### Using Local OPIK Server
+#### Setting Environment Variables: Local OPIK Server
 
 If you're running OPIK locally on port 8080, use these environment variables instead:
 
