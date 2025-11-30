@@ -60,6 +60,8 @@ The application requires the following environment variables to be set:
 
 #### Setting Environment Variables
 
+##### Using Cloud OPIK (Comet)
+
 **On macOS/Linux:**
 ```bash
 export OPENAI_API_KEY="sk-your-openai-api-key-here"
@@ -81,11 +83,38 @@ $env:OTEL_EXPORTER_OTLP_ENDPOINT="https://www.comet.com/opik/api/v1/private/otel
 $env:OTEL_EXPORTER_OTLP_HEADERS="Authorization=<your-opik-api-key>,Comet-Workspace=default,projectName=<your-project-name>"
 ```
 
+##### Using Local OPIK Server
+
+If you're running OPIK locally on port 8080, use these environment variables instead:
+
+**On macOS/Linux:**
+```bash
+export OPENAI_API_KEY="sk-your-openai-api-key-here"
+export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:8080/v1/private/otel"
+export OTEL_EXPORTER_OTLP_HEADERS="Comet-Workspace=default,projectName=<your-project-name>"
+```
+
+**On Windows (Command Prompt):**
+```cmd
+set OPENAI_API_KEY=sk-your-openai-api-key-here
+set OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:8080/v1/private/otel
+set OTEL_EXPORTER_OTLP_HEADERS=Comet-Workspace=default,projectName=<your-project-name>
+```
+
+**On Windows (PowerShell):**
+```powershell
+$env:OPENAI_API_KEY="sk-your-openai-api-key-here"
+$env:OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:8080/v1/private/otel"
+$env:OTEL_EXPORTER_OTLP_HEADERS="Comet-Workspace=default,projectName=<your-project-name>"
+```
+
+**Note**: When using a local OPIK server, you don't need the `Authorization` header in `OTEL_EXPORTER_OTLP_HEADERS`.
+
 ### Application Configuration
 
 The application is configured via `src/main/resources/application.yml`:
 
-- **Server Port**: 8081 (customizable)
+- **Server Port**: 8085 (customizable)
 - **OpenAI Model**: gpt-4o (customizable)
 - **Temperature**: 0.7 (controls response creativity)
 - **Tracing**: All requests are traced (100% sampling)
@@ -108,7 +137,7 @@ java -jar target/spring-ai-demo-opik-0.0.1-SNAPSHOT.jar
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.devtools.restart.enabled=true"
 ```
 
-The application will start on **http://localhost:8081**
+The application will start on **http://localhost:8085**
 
 ## Manual Testing
 
@@ -116,17 +145,17 @@ The application will start on **http://localhost:8081**
 
 **Basic question:**
 ```bash
-curl "http://localhost:8081/api/chat/ask-me?question=What is Spring AI?"
+curl "http://localhost:8085/api/chat/ask-me?question=What is Spring AI?"
 ```
 
 **Complex question with URL encoding:**
 ```bash
-curl --get --data-urlencode "question=How to integrate Spring AI with OpenAI for building chatbots?" http://localhost:8081/api/chat/ask-me
+curl --get --data-urlencode "question=How to integrate Spring AI with OpenAI for building chatbots?" http://localhost:8085/api/chat/ask-me
 ```
 
 **Default question (if no parameter provided):**
 ```bash
-curl "http://localhost:8081/api/chat/ask-me"
+curl "http://localhost:8085/api/chat/ask-me"
 ```
 
 ### 2. Test with curl (POST Request)
@@ -136,7 +165,7 @@ curl "http://localhost:8081/api/chat/ask-me"
 curl -X POST \
   -H "Content-Type: text/plain" \
   -d "Explain the benefits of using OpenTelemetry for monitoring" \
-  http://localhost:8081/api/chat/ask
+  http://localhost:8085/api/chat/ask
 ```
 
 **POST with JSON (if needed):**
@@ -144,34 +173,34 @@ curl -X POST \
 curl -X POST \
   -H "Content-Type: application/json" \
   -d '"What are the key features of Spring Boot 3.4?"' \
-  http://localhost:8081/api/chat/ask
+  http://localhost:8085/api/chat/ask
 ```
 
 ### 3. Test with Postman
 
 #### GET Request:
 - **Method**: GET
-- **URL**: `http://localhost:8081/api/chat/ask-me`
+- **URL**: `http://localhost:8085/api/chat/ask-me`
 - **Query Parameters**:
   - Key: `question`
   - Value: `How to integrate Spring AI with OpenAI?`
 
 #### POST Request:
 - **Method**: POST
-- **URL**: `http://localhost:8081/api/chat/ask`
+- **URL**: `http://localhost:8085/api/chat/ask`
 - **Headers**: `Content-Type: text/plain`
 - **Body**: `What is the difference between Spring AI and LangChain?`
 
 ### 4. Test with HTTPie
 ```bash
-http GET localhost:8081/api/chat/ask-me question=="What is machine learning?"
+http GET localhost:8085/api/chat/ask-me question=="What is machine learning?"
 ```
 
 ### 5. Test with Browser
 
 Open your browser and navigate to:
 ```
-http://localhost:8081/api/chat/ask-me?question=Tell me about Spring Framework
+http://localhost:8085/api/chat/ask-me?question=Tell me about Spring Framework
 ```
 
 ## API Endpoints
@@ -215,7 +244,7 @@ The application automatically captures:
 
 Check application health:
 ```bash
-curl http://localhost:8081/actuator/health
+curl http://localhost:8085/actuator/health
 ```
 
 ## Troubleshooting
@@ -238,11 +267,11 @@ curl http://localhost:8081/actuator/health
 
 #### 3. Port Already in Use
 
-**Error**: `Port 8081 is already in use`
+**Error**: `Port 8085 is already in use`
 - **Solution**: Change the port in `application.yml`:
   ```yml
   server:
-    port: 8082
+    port: 8086
   ```
 
 #### 4. OpenAI API Errors
