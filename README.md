@@ -175,6 +175,28 @@ curl -X POST \
   http://localhost:8085/api/chat/ask
 ```
 
+**Enhanced POST with tags and metadata (JSON):**
+```bash
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "What are the benefits of using Spring AI?",
+    "tags": ["spring", "ai", "tutorial"],
+    "metadata": {
+      "userId": "user123",
+      "sessionId": "session456",
+      "category": "educational"
+    }
+  }' \
+  http://localhost:8085/api/chat/ask-enhanced
+```
+
+**Enhanced POST with parameters:**
+```bash
+curl -X POST \
+  "http://localhost:8085/api/chat/ask-with-params?question=What%20is%20OpenTelemetry?&tags=monitoring,observability&metadata=userId:123,sessionId:abc"
+```
+
 ### 3. Test with Postman
 
 #### GET Request:
@@ -189,6 +211,31 @@ curl -X POST \
 - **URL**: `http://localhost:8085/api/chat/ask`
 - **Headers**: `Content-Type: text/plain`
 - **Body**: `What is the difference between Spring AI and LangChain?`
+
+#### Enhanced POST Request (JSON with tags and metadata):
+- **Method**: POST
+- **URL**: `http://localhost:8085/api/chat/ask-enhanced`
+- **Headers**: `Content-Type: application/json`
+- **Body**:
+  ```json
+  {
+    "question": "What are the benefits of using Spring AI?",
+    "tags": ["spring", "ai", "tutorial"],
+    "metadata": {
+      "userId": "user123",
+      "sessionId": "session456",
+      "category": "educational"
+    }
+  }
+  ```
+
+#### Enhanced POST Request (URL parameters):
+- **Method**: POST
+- **URL**: `http://localhost:8085/api/chat/ask-with-params`
+- **Query Parameters**:
+  - Key: `question`, Value: `What is OpenTelemetry?`
+  - Key: `tags`, Value: `monitoring,observability,tracing`
+  - Key: `metadata`, Value: `userId:123,sessionId:abc,environment:dev`
 
 ### 4. Test with HTTPie
 ```bash
@@ -221,6 +268,45 @@ http://localhost:8085/api/chat/ask-me?question=Tell me about Spring Framework
 
   What is Spring AI?
   ```
+
+### POST /api/chat/ask-enhanced
+- **Description**: Ask a question with tags and metadata for enhanced tracing
+- **Content-Type**: `application/json`
+- **Body**: JSON object with question, tags, and metadata
+- **Request Format**:
+  ```json
+  {
+    "question": "Your question here",
+    "tags": ["tag1", "tag2", "tag3"],
+    "metadata": {
+      "key1": "value1",
+      "key2": "value2"
+    }
+  }
+  ```
+- **Example**:
+  ```
+  POST /api/chat/ask-enhanced
+  Content-Type: application/json
+
+  {
+    "question": "What are the benefits of using Spring AI?",
+    "tags": ["spring", "ai", "tutorial"],
+    "metadata": {
+      "userId": "user123",
+      "sessionId": "session456",
+      "category": "educational"
+    }
+  }
+  ```
+
+### POST /api/chat/ask-with-params
+- **Description**: Ask a question with tags and metadata using URL parameters
+- **Parameters**:
+  - `question` (required): Your question
+  - `tags` (optional): Comma-separated list of tags
+  - `metadata` (optional): Key-value pairs in format `key1:value1,key2:value2`
+- **Example**: `/api/chat/ask-with-params?question=What is OpenTelemetry?&tags=monitoring,observability&metadata=userId:123,sessionId:abc`
 
 ## Monitoring and Observability
 
