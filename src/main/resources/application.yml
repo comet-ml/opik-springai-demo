@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: spring-ai-otel
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-4o
+          temperature: 0.7
+server:
+  port: 8081
+
+# Enable OpenTelemetry tracing
+management:
+  tracing:
+    sampling:
+      probability: 1.0 # Sample all traces
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}
+          headers: ${OTEL_EXPORTER_OTLP_HEADERS}
+
+# Disable metrics and logs exporters via OpenTelemetry to avoid putting an extra load on the OpenTelemetry collector
+otel:
+  metrics:
+    exporter: none
+  logs:
+    exporter: none
