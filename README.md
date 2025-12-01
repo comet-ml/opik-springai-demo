@@ -1,7 +1,8 @@
 # Spring AI Chatbot REST Application
 
 This is a simple Spring AI Chatbot REST application that uses the OpenAI API to answer questions.
-It demonstrates how to monitor Spring AI Chatbot using OpenTelemetry and OPIK server for observability and tracing.
+It demonstrates how to monitor Spring AI Chatbot using OpenTelemetry and [OPIK server](https://www.comet.com/docs/opik/integrations/spring-ai)
+for observability and tracing.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
@@ -47,6 +48,8 @@ mvn clean install
 ```
 
 ## Configuration
+
+For additional details refer to the [OPIK documentation](https://www.comet.com/docs/opik/integrations/spring-ai).
 
 ### Environment Variables
 
