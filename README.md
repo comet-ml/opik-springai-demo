@@ -27,8 +27,8 @@ Before running this application, ensure you have the following installed:
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd springAI-otel
+git clone git@github.com:comet-ml/opik-springai-demo.git
+cd opik-springai-demo
 ```
 
 ### 2. Verify Java Installation
@@ -92,21 +92,21 @@ If you're running OPIK locally on port 8080, use these environment variables ins
 **On macOS/Linux:**
 ```bash
 export OPENAI_API_KEY="sk-your-openai-api-key-here"
-export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:8080/v1/private/otel"
+export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:5173/api/v1/private/otel"
 export OTEL_EXPORTER_OTLP_HEADERS="Comet-Workspace=default,projectName=<your-project-name>"
 ```
 
 **On Windows (Command Prompt):**
 ```cmd
 set OPENAI_API_KEY=sk-your-openai-api-key-here
-set OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:8080/v1/private/otel
+set OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:5173/api/v1/private/otel
 set OTEL_EXPORTER_OTLP_HEADERS=Comet-Workspace=default,projectName=<your-project-name>
 ```
 
 **On Windows (PowerShell):**
 ```powershell
 $env:OPENAI_API_KEY="sk-your-openai-api-key-here"
-$env:OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:8080/v1/private/otel"
+$env:OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:5173/api/v1/private/otel"
 $env:OTEL_EXPORTER_OTLP_HEADERS="Comet-Workspace=default,projectName=<your-project-name>"
 ```
 
